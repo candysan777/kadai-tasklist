@@ -15,13 +15,12 @@ class TasksController extends Controller
     public function index()
     {
         if (\Auth::check()) { //ログイン済みの場合は
-        $user = \Auth::user();// ログイン済みユーザを取得
-        //自分のユーザーIDのタスクのみを取得する
-        $tasks = $user->tasks()->orderBy('created_at')->paginate(10);
-         }
+            $user = \Auth::user();// ログイン済みユーザを取得
+            //自分のユーザーIDのタスクのみを取得する
+            $tasks = $user->tasks()->orderBy('created_at')->paginate(10);
+         
         
         //ログインしていなければwelcome、ログインしていたらtasks.indexを開く
-        if (\Auth::check()){
             return view('tasks.index',[
                 'tasks' => $tasks,
             ]);
@@ -40,7 +39,6 @@ class TasksController extends Controller
     {
         $task = new Task;
         
-        
             return view('tasks.create',[
                 'task' => $task,
             ]);
@@ -56,8 +54,6 @@ class TasksController extends Controller
      */
     public function store(Request $request) 
     {
-        
-        if(\Auth::id() === $task->user_id){
             $request->validate([
                 'status' => 'required|max:10',  
                 'content' => 'required|max:255',
@@ -69,7 +65,6 @@ class TasksController extends Controller
             ]);
         
             return redirect('/');
-        }
     }
     
 

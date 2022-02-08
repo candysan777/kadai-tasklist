@@ -42,8 +42,6 @@ class TasksController extends Controller
             return view('tasks.create',[
                 'task' => $task,
             ]);
-        
-
     }
 
     /**
@@ -80,11 +78,13 @@ class TasksController extends Controller
         
         //ログイン済ユーザがその投稿の所有者である場合、投稿の詳細を表示できる
         if(\Auth::id() === $task->user_id){
-        return view('tasks.show',[
-            'task' => $task,
+            return view('tasks.show',[
+                'task' => $task,
             ]);
     
         }
+        //リダイレクト
+       return redirect('/');
     }
 
     /**
